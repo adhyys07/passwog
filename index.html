@@ -3,444 +3,284 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Password Ragebait</title>
+<title>The Impossible Password</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
+/* White and roomy, with one loud red and stickers for the exhibits. */
 :root{
   color-scheme: light;
-  --desk:#ddd9cd;
-  --sheet:#fdfcf7;
-  --sheet-2:#fffefb;
-  --band:#efebe0;
-  --ink:#1a1a1a;
-  --ink-2:#4a443d;
-  --ink-3:#645e55;
-  --rule:#9a927f;
-  --rule-2:#c3bcab;
-  --stamp:#9b2c2c;
-  --stamp-ink:#7a3b36;
-  --stamp-bg:#fdf4f2;
-  --ok:#2f5d3f;
-  --ok-bg:#f2f5f0;
-  --serif:"Times New Roman", Tinos, Times, Georgia, serif;
-  --mono:ui-monospace, Consolas, "Cascadia Mono", "Courier New", monospace;
-  --shadow:0 1px 0 #b9b2a0, 0 10px 24px rgba(40,36,28,.13);
+  --bg:#ffffff;
+  --surface:#f7f8fa;
+  --line:#e4e7eb;
+  --fg:#17191c;
+  --muted:#5f6368;
+  --red:#ec3750;
+  --red-soft:#fff1f3;
+  --on-red:#ffffff;
+  --green:#15926a;
+  --green-soft:#edfaf4;
+  --radius:16px;
+  --shadow:0 1px 2px rgba(23,25,28,.06), 0 8px 24px rgba(23,25,28,.07);
+  --display:"Poppins",system-ui,sans-serif;
+  --ui:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
+  :root{
     color-scheme: dark;
-    --desk:#121109;
-    --sheet:#1c1b15;
-    --sheet-2:#211f18;
-    --band:#2a2820;
-    --ink:#ece7d8;
-    --ink-2:#c3bca9;
-    --ink-3:#a09884;
-    --rule:#55503f;
-    --rule-2:#3c382c;
-    --stamp:#e8836f;
-    --stamp-ink:#e0a195;
-    --stamp-bg:#2b1a15;
-    --ok:#82bd98;
-    --ok-bg:#1a241c;
-    --shadow:0 1px 0 #000, 0 10px 24px rgba(0,0,0,.5);
+    --bg:#15171a;
+    --surface:#1d2025;
+    --line:#2d3238;
+    --fg:#e8eaed;
+    --muted:#9aa0a6;
+    --red:#ff7085;
+    --red-soft:#2b1a1e;
+    --on-red:#2b0f14;
+    --green:#5fd9a8;
+    --green-soft:#15261f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
   }
 }
-:root[data-theme="dark"]{
-  color-scheme: dark;
-  --desk:#121109; --sheet:#1c1b15; --sheet-2:#211f18; --band:#2a2820;
-  --ink:#ece7d8; --ink-2:#c3bca9; --ink-3:#a09884; --rule:#55503f; --rule-2:#3c382c;
-  --stamp:#e8836f; --stamp-ink:#e0a195; --stamp-bg:#2b1a15; --ok:#82bd98; --ok-bg:#1a241c;
-  --shadow:0 1px 0 #000, 0 10px 24px rgba(0,0,0,.5);
-}
 
-*,*::before,*::after{box-sizing:border-box}
+*{box-sizing:border-box}
 body{
   margin:0;
-  background:var(--desk);
-  color:var(--ink);
-  font-family:var(--serif);
-  font-size:16px;
-  line-height:1.5;
-  -webkit-text-size-adjust:100%;
+  background:var(--bg);
+  color:var(--fg);
+  font:400 17px/1.6 var(--ui);
 }
-.sheet{
-  max-width:680px;
-  margin:0 auto;
-  padding:clamp(16px,4vw,40px) 14px 72px;
-  padding-top:calc(clamp(16px,4vw,40px) + env(safe-area-inset-top,0px));
-}
-.form{
-  background:var(--sheet);
-  border:1px solid var(--rule);
-  box-shadow:var(--shadow);
-  padding:clamp(18px,4vw,26px) clamp(16px,4vw,26px) 20px;
-}
+img{max-width:100%}
+.sheet{max-width:660px; margin:0 auto; padding:40px 16px 72px}
+.form,.inner{display:grid; gap:22px}
 
-/* masthead */
-.masthead{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:14px;
-  border-bottom:2px solid var(--ink);
-  padding-bottom:9px;
+/* header, centred the way a search page is */
+.masthead{display:grid; gap:6px; justify-items:center; text-align:center}
+.agency{
+  margin:0;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--red);
 }
 h1{
   margin:0;
-  font-size:clamp(1.25rem,4vw,1.5rem);
+  font-family:var(--display);
   font-weight:700;
-  letter-spacing:-.01em;
-  line-height:1.15;
+  font-size:clamp(2rem,7vw,2.75rem);
+  letter-spacing:-.025em;
+  line-height:1.1;
 }
-.formno{
-  margin:4px 0 0;
-  font-family:var(--mono);
-  font-size:.62rem;
-  letter-spacing:.03em;
-  color:var(--ink-3);
-}
-.session{
-  flex:0 0 auto;
-  text-align:right;
-  font-family:var(--mono);
-  font-size:.62rem;
-  line-height:1.7;
-  color:var(--ink-3);
-  white-space:nowrap;
-}
-.session #clock{font-variant-numeric:tabular-nums; color:var(--ink-2)}
-.deck{
-  margin:11px 0 16px;
-  font-style:italic;
-  font-size:.88rem;
-  line-height:1.45;
-  color:var(--ink-2);
-  max-width:56ch;
-}
+.meta{margin:2px 0 0; font-family:var(--mono); font-size:.78rem; color:var(--muted)}
+.deck{margin:0 auto; max-width:48ch; text-align:center; color:var(--muted)}
 
-/* block 1 — the credential field */
-.block{
-  border:1px solid var(--rule);
-  background:var(--sheet-2);
+/* the input, treated like the one thing on the page */
+.field{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  padding:18px 22px 14px;
+  display:grid;
+  gap:8px;
 }
-.blockhead{
+.field p{margin:0}
+.field:focus-within{border-color:var(--red)}
+.field.burning{border-color:var(--red); animation:shake .4s linear infinite}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-2px)}
+  75%{transform:translateX(2px)}
+}
+.field-head{
   margin:0;
-  background:var(--band);
-  border-bottom:1px solid var(--rule);
-  padding:5px 11px;
-  font-family:var(--mono);
-  font-size:.56rem;
-  font-weight:400;
-  letter-spacing:.14em;
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.12em;
   text-transform:uppercase;
-  color:var(--ink-2);
+  color:var(--muted);
 }
-.blockbody{padding:11px 12px 9px}
-.block.burning{animation:tremble .35s linear infinite}
-.block.burning,.block:focus-within{border-color:var(--ink)}
-@keyframes tremble{
-  0%,100%{transform:translate(0,0)}
-  25%{transform:translate(-1px,1px)}
-  75%{transform:translate(1px,-1px)}
-}
-label.cap{
-  display:block;
-  font-size:.72rem;
-  font-style:italic;
-  color:var(--ink-3);
-  margin-bottom:7px;
-}
+.field label{font-size:.9rem; color:var(--muted)}
 textarea{
   display:block;
   width:100%;
-  min-height:74px;
+  min-height:76px;
   resize:vertical;
   border:0;
-  border-bottom:1px dotted var(--rule);
-  padding:0 0 7px;
+  padding:0;
   background:transparent;
-  color:var(--ink);
-  font-family:var(--mono);
-  font-size:.98rem;
-  letter-spacing:.03em;
-  line-height:1.6;
+  color:var(--fg);
+  font:500 1.05rem/1.6 var(--mono);
   word-break:break-word;
 }
 textarea:focus{outline:none}
-.gauge{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-top:7px;
-  font-family:var(--mono);
-  font-size:.58rem;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  font-variant-numeric:tabular-nums;
-  color:var(--ink-3);
-}
-.gauge .spacer{flex:1}
+.fieldnote{font-family:var(--mono); font-size:.75rem; color:var(--muted)}
 
-/* compliance meter */
-.tally{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:14px 0 10px;
-  font-family:var(--mono);
-  font-size:.58rem;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  font-variant-numeric:tabular-nums;
-  color:var(--ink-2);
-}
-.tallylabel{flex:0 0 auto}
-.bar{
-  flex:1;
-  height:9px;
-  border:1px solid var(--rule);
-  background:var(--band);
-  position:relative;
-  overflow:hidden;
-}
-.bar i{
-  position:absolute;
-  inset:0 auto 0 0;
-  background:var(--ok);
-  transition:width .25s ease;
-}
-#score{flex:0 0 auto}
-
-/* the marginal stamp */
-.taunt{
-  display:inline-block;
-  margin:0 0 16px;
-  border:1px solid var(--stamp);
-  color:var(--stamp);
-  background:transparent;
-  padding:3px 8px;
-  font-family:var(--mono);
-  font-size:.58rem;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-  transform:rotate(-1.2deg);
-}
-.taunt::before{content:"Noted: "}
-.taunt:empty{display:none}
-.taunt.hot{border-width:2px; font-weight:600}
+/* progress */
+.tally{display:grid; gap:8px}
+.tallyhead{margin:0; font-size:.82rem; font-weight:500; color:var(--muted)}
+.tallyhead #score{color:var(--fg)}
+.bar{height:8px; background:var(--surface); border-radius:999px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:var(--red); border-radius:999px; transition:width .3s ease}
+.bar.done i{background:var(--green)}
+.status{margin:0; font-size:.95rem; color:var(--muted)}
 
 /* clauses */
-.notice{
-  border:1px solid var(--rule-2);
-  background:var(--sheet-2);
-  padding:9px 11px;
-  margin-bottom:7px;
-  display:flex;
-  gap:11px;
-  align-items:flex-start;
+.notices{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.rec{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  display:grid;
+  gap:8px;
 }
-.notice.fail{
-  border-color:var(--stamp);
-  background:var(--stamp-bg);
-  padding:11px;
-}
-.notice.fresh{animation:land .25s ease-out}
-@keyframes land{
-  from{opacity:0; transform:translateY(-5px)}
-  to{opacity:1; transform:none}
-}
-.mark{
-  order:2;
-  flex:0 0 auto;
+.rec.open{border-color:var(--red); background:var(--red-soft); box-shadow:var(--shadow)}
+.rec-head{margin:0; display:flex; align-items:center; gap:10px}
+.code{font-family:var(--mono); font-size:.74rem; color:var(--muted)}
+.flag{
   margin-left:auto;
-  margin-top:1px;
-  border:1px solid currentColor;
-  padding:1px 5px;
-  font-family:var(--mono);
-  font-size:.52rem;
-  letter-spacing:.1em;
+  padding:3px 10px;
+  border-radius:999px;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.06em;
   text-transform:uppercase;
-  white-space:nowrap;
 }
-.notice.fail .mark{color:var(--stamp)}
-.notice.pass .mark{color:var(--ok)}
-.body{order:1; flex:1; min-width:0; font-size:.86rem; line-height:1.45; color:var(--ink-2)}
-.notice.fail .body{color:var(--ink)}
-.body b{font-weight:700}
-.clause{font-weight:700; font-variant-numeric:tabular-nums}
-.num{
-  display:block;
-  margin-top:5px;
-  font-family:var(--mono);
-  font-size:.66rem;
-  line-height:1.5;
-  color:var(--ink-3);
-}
-.notice.fail .num{color:var(--stamp-ink)}
-.num b{color:var(--ink); font-weight:700}
+.rec.open .flag{background:var(--red); color:var(--on-red)}
+.rec.met .flag{background:var(--green-soft); color:var(--green)}
+.rec-text{margin:0; font-size:.98rem}
+.rec.met .rec-text{color:var(--muted)}
+.rec-note{margin:0; font-family:var(--mono); font-size:.8rem; color:var(--muted)}
+.rec-tray{display:grid; gap:10px; justify-items:start}
 
-/* exhibits and attachments */
-.tray{margin-top:9px}
-.meme{margin:0; padding:0; display:block; max-width:260px}
+/* exhibits, stuck on like stickers */
+.meme{margin:0}
 .meme img{
   display:block;
-  width:96px;
-  height:96px;
+  width:104px;
+  height:104px;
   object-fit:cover;
-  border:1px solid var(--rule);
-  background:var(--band);
-  filter:sepia(.22) saturate(.92);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  transform:rotate(-2deg);
 }
-.meme figcaption{
-  margin-top:4px;
-  font-family:var(--mono);
-  font-size:.54rem;
-  letter-spacing:.04em;
-  line-height:1.5;
-  color:var(--ink-3);
-  text-transform:uppercase;
-}
-.meme figcaption::before{content:"Exhibit — "}
-.moons{font-size:1.3rem; letter-spacing:.26em; margin:6px 0}
+.meme figcaption{margin-top:12px; font-size:.68rem; color:var(--muted)}
+.meme figcaption::before{content:"Exhibit: "}
+.moons{font-size:1.4rem; letter-spacing:.2em}
 .captcha{
   display:inline-flex;
-  align-items:center;
-  gap:4px;
-  background:var(--band);
-  border:1px dashed var(--rule);
-  padding:8px 13px;
-  margin:6px 0;
+  gap:6px;
+  padding:10px 16px;
+  border-radius:12px;
+  background:var(--surface);
   user-select:none;
 }
-.captcha span{
-  font-family:var(--mono);
-  font-size:1.25rem;
-  font-weight:600;
-  display:inline-block;
-}
+.captcha span{display:inline-block; font:500 1.35rem var(--mono)}
 button{
-  font-family:var(--mono);
-  font-size:.6rem;
-  letter-spacing:.07em;
-  text-transform:uppercase;
-  color:var(--ink);
-  background:var(--band);
-  border:1px solid var(--rule);
-  padding:4px 10px;
+  font:500 .82rem var(--ui);
+  padding:8px 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--bg);
+  color:var(--fg);
   cursor:pointer;
-  margin:8px 6px 0 0;
 }
-button:hover{background:var(--sheet); border-color:var(--ink-2)}
-button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button:hover{background:var(--surface); box-shadow:var(--shadow)}
+button:focus-visible{outline:2px solid var(--red); outline-offset:2px}
 .table{
-  margin-top:9px;
-  max-height:142px;
+  width:100%;
+  max-height:160px;
   overflow:auto;
-  border:1px solid var(--rule-2);
-  background:var(--sheet);
-  padding:8px;
+  padding:12px;
+  border-radius:12px;
+  background:var(--surface);
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(60px,1fr));
-  gap:3px;
-  font-family:var(--mono);
-  font-size:.62rem;
+  grid-template-columns:repeat(auto-fill,minmax(64px,1fr));
+  gap:5px;
+  font:.74rem var(--mono);
+  color:var(--muted);
 }
-.table div{color:var(--ink-3)}
-.table b{color:var(--ink); font-weight:700}
+.table b{color:var(--fg); font-weight:500}
 
-/* determination */
+/* the win */
 .win{
-  border:2px solid var(--ok);
-  background:var(--ok-bg);
-  padding:16px 18px;
-  margin-bottom:14px;
+  border:1px solid var(--green);
+  border-radius:var(--radius);
+  background:var(--green-soft);
+  padding:20px;
+  display:grid;
+  gap:12px;
+  justify-items:start;
 }
-.win h2{
-  margin:0 0 5px;
-  font-size:1.1rem;
-  font-weight:700;
-  letter-spacing:.01em;
-  text-transform:uppercase;
-  color:var(--ok);
-}
-.win p{margin:0 0 10px; font-size:.82rem; font-style:italic; color:var(--ink-2)}
+.win h2{margin:0; font-family:var(--display); font-size:1.3rem; color:var(--green)}
+.win p{margin:0; color:var(--muted)}
 .win .out{
-  font-family:var(--mono);
-  font-size:.78rem;
-  background:var(--sheet-2);
-  border:1px solid var(--rule);
-  padding:9px 11px;
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  background:var(--bg);
+  font:500 .88rem var(--mono);
   word-break:break-all;
 }
+.win button{background:var(--red); border-color:var(--red); color:var(--on-red)}
+.win button:hover{background:var(--red); filter:brightness(1.08)}
 
 .finefoot{
-  margin:16px 0 0;
-  border-top:1px solid var(--rule);
-  padding-top:7px;
-  font-family:var(--mono);
-  font-size:.54rem;
-  line-height:1.65;
-  color:var(--ink-3);
+  margin:0;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  text-align:center;
+  font-size:.78rem;
+  color:var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important; transition:none !important}
 }
-@media (max-width: 460px){
-  .masthead{flex-direction:column; gap:6px}
-  .session{text-align:left}
-  .tally{flex-wrap:wrap}
-  .bar{order:3; flex-basis:100%}
-}
 </style>
 </head>
 <body>
 <main class="sheet">
-<div class="form">
+<article class="form">
 
   <header class="masthead">
-    <div>
-      <h1>Credential Establishment Request</h1>
-    </div>
-    <div class="session">
-      <span id="clock">00:00</span><br>
-    </div>
+    <h1>The Impossible Password</h1>
+    <p class="meta"><span id="clock">00:00</span>
+    &middot; Edits <span id="edits">0</span></p>
   </header>
 
-  <p class="deck">Complete all applicable clauses. Incomplete submissions are returned without notice. Estimated burden: 30 seconds.</p>
+  <div class="inner">
 
-  <section class="block" id="field">
-    <h2 class="blockhead"> Proposed credential</h2>
-    <div class="blockbody">
-      <label class="cap" for="pw">Enter the proposed credential in the space provided.</label>
-      <textarea id="pw" rows="3" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off"></textarea>
-      <div class="gauge">
-        <span id="count">0 characters</span>
-        <span class="spacer"></span>
-        <span id="edits">0 keystrokes</span>
-      </div>
-    </div>
-  </section>
+    <p class="deck">A password game, made for class. Type anything to begin. Satisfy a clause and
+    the next one unseals itself, and they stop being reasonable almost immediately.</p>
 
-  <div class="tally">
-    <span class="tallylabel">Compliance</span>
-    <span class="bar"><i id="fill" style="width:0%"></i></span>
-    <span id="score">0 of 1 cleared</span>
+    <section class="field" id="field">
+      <h2 class="field-head">Proposed credential</h2>
+      <p><label for="pw">Make one up. Nothing you type is saved or sent anywhere.</label></p>
+      <p><textarea id="pw" rows="4" cols="60" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off"></textarea></p>
+      <p class="fieldnote"><span id="count">0 characters</span></p>
+    </section>
+
+    <section class="tally">
+      <p class="tallyhead">Clauses satisfied: <span id="score">0 of 1</span></p>
+      <div class="bar" id="bar"><i id="fill"></i></div>
+      <p class="status" id="taunt"></p>
+    </section>
+
+    <div id="win"></div>
+    <ul class="notices" id="notices"></ul>
+
   </div>
 
-  <p class="taunt" id="taunt"></p>
 
-  <div id="win"></div>
-  <div id="notices"></div>
-
-
-</div>
+</article>
 </main>
 <script>
   (function(){
 "use strict";
 
-/* ── helpers ──────────────────────────── */
 var chars = function(s){ return Array.from(s); };
 var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
   return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); };
@@ -496,13 +336,6 @@ function letters(s){ return s.toLowerCase().replace(/[^a-z]/g, ""); }
 
 var DOGE = ["much","very","such","wow"];
 
-/* renders rule copy in the register of the form */
-function formal(t){
-  return t.replace(/Your password/g, "The credential")
-          .replace(/your password/g, "the credential")
-          .replace(/ must /g, " shall ");
-}
-
 var MEMES = {
   doge: {alt: "Kabosu, the shiba inu behind the Doge meme", credit: "Kabosu by Asanagi, CC0",
     src: "data:image/webp;base64,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"},
@@ -553,7 +386,6 @@ function makeCaptcha(){
   return {text: out.join(""), tilt: tilt};
 }
 
-/* ── state ────────────────────────────── */
 var state = {
   revealed: 1,
   captcha: makeCaptcha(),
@@ -572,7 +404,6 @@ var noticesEl = document.getElementById("notices");
 var winEl = document.getElementById("win");
 var fieldEl = document.getElementById("field");
 
-/* ── the rules ────────────────────────── */
 var RULES = [
   {
     id: "len",
@@ -652,7 +483,7 @@ var RULES = [
     note: function(){ return "You know the one. Everybody knows the one."; },
     widget: function(){
       return memeImg("rick") + (state.hints.rick
-        ? '<span class="num">Fine. <b>never gonna</b> give you up.</span>'
+        ? '<p class="rec-note">Fine. <b>never gonna</b> give you up.</p>'
         : '<button data-act="hint" data-id="rick">I was never going to guess</button>');
     }
   },
@@ -684,7 +515,7 @@ var RULES = [
                'deg) translateY(' + (i % 2 ? 2 : -2) + 'px)">' + esc(c) + '</span>';
       }).join("");
       return '<div class="captcha">' + spans + '</div><br>' +
-             '<button data-act="recaptcha">Get a different one</button>';
+             '<button data-act="recaptcha">Issue a different captcha</button>';
     }
   },
   {
@@ -694,7 +525,7 @@ var RULES = [
     widget: function(){
       if(state.hints.moon){
         return '<div class="moons">' + MOON + '</div>' +
-               '<span class="num">Tonight: ' + MOON_NAMES[moonIndex()] + '.</span>';
+               '<p class="rec-note">Tonight: ' + MOON_NAMES[moonIndex()] + '.</p>';
       }
       return '<div class="moons">' + MOONS.join("") + '</div>' +
              '<button data-act="hint" data-id="moon">Look outside for me</button>';
@@ -707,7 +538,7 @@ var RULES = [
     note: function(){ return "Up up down down left right left right B A."; },
     widget: function(){
       return memeImg("konami") + (state.hints.konami
-        ? '<span class="num">As letters: <b>uuddlrlrba</b></span>'
+        ? '<p class="rec-note">As letters: <b>uuddlrlrba</b></p>'
         : '<button data-act="hint" data-id="konami">Spell it out for me</button>');
     }
   },
@@ -737,7 +568,7 @@ var RULES = [
     },
     widget: function(){
       if(!state.hints.atomic){
-        return '<button data-act="hint" data-id="atomic">Show me the table</button>';
+        return '<button data-act="hint" data-id="atomic">Open the reference table</button>';
       }
       var rows = Object.keys(EL).sort(function(a, b){ return EL[a] - EL[b]; })
         .map(function(k){ return "<div><b>" + k + "</b> " + EL[k] + "</div>"; }).join("");
@@ -764,26 +595,25 @@ var RULES = [
 
 var FIRE_AT = RULES.findIndex(function(r){ return r.id === "fire"; });
 
-/* ── taunts ───────────────────────────── */
 var tauntEl = document.getElementById("taunt");
 
 function taunt(){
-  if(state.won) return "fine. you win. go outside.";
-  if(!state.started) return "it is just a password.";
+  if(state.won) return "Determination filed. The form is yours to keep.";
+  if(!state.started) return "Awaiting entry.";
 
   var secs = Math.floor((Date.now() - state.started) / 1000);
   var left = RULES.length - state.revealed;
 
-  if(state.backs > 60) return state.backs + " backspaces. that key did nothing to you.";
-  if(state.edits > 500) return state.edits + " keystrokes. for one password.";
-  if(secs < 20)  return "it is just a password.";
-  if(secs < 45)  return left > 0 ? "rule " + state.revealed + ". " + left + " still hiding." : "nearly there. allegedly.";
-  if(secs < 90)  return "pace yourself. it does not get easier.";
-  if(secs < 150) return "my grandma types faster than this.";
-  if(secs < 240) return "skill issue.";
-  if(secs < 360) return "this is genuinely hard to watch.";
-  if(secs < 600) return "we can do this all day. literally.";
-  return "ten minutes. on a password field.";
+  if(state.backs > 60) return "A great deal of deleting. The office does not mind.";
+  if(state.edits > 500) return "Over 500 edits recorded against this form.";
+  if(secs < 20)  return "Clause 1 is the generous one.";
+  if(secs < 45)  return left > 0 ? left + " clauses are still sealed." : "Every clause is on the page now.";
+  if(secs < 90)  return "The clauses get worse. That is the design.";
+  if(secs < 150) return "Compliance takes time. The office has plenty.";
+  if(secs < 240) return "Some clauses come with hints. Use them.";
+  if(secs < 360) return "Still open. No penalty applies.";
+  if(secs < 600) return "Filed under: persistent.";
+  return "There is no time limit. Stop whenever you like.";
 }
 
 function paintTaunt(){
@@ -824,7 +654,6 @@ function burn(){
   render();
 }
 
-/* ── render ───────────────────────────── */
 function render(){
   var v = pw.value;
   var results = RULES.map(function(r){ return r.ok(v); });
@@ -845,11 +674,12 @@ function render(){
 
   document.getElementById("count").textContent =
     chars(v).length + (chars(v).length === 1 ? " character" : " characters");
-  document.getElementById("edits").textContent = state.edits + " keystrokes";
+  document.getElementById("edits").textContent = state.edits;
   document.getElementById("score").textContent =
-    cleared + " of " + state.revealed + " cleared";
+    cleared + " of " + state.revealed;
   document.getElementById("fill").style.width =
     (cleared / RULES.length * 100).toFixed(1) + "%";
+  document.getElementById("bar").classList.toggle("done", cleared === RULES.length);
 
   fieldEl.classList.toggle("burning", v.indexOf("🔥") !== -1);
 
@@ -863,14 +693,14 @@ function render(){
   var html = failing.concat(passing).map(function(item){
     var r = item.rule, pass = results[item.idx];
     var fresh = (grew && item.idx === state.revealed - 1) ? " fresh" : "";
-    var parts = ['<div class="notice ' + (pass ? "pass" : "fail") + fresh + '">'];
-    parts.push('<span class="mark">' + (pass ? "Met" : "Deficient") + '</span>');
-    parts.push('<div class="body">');
-    parts.push('<span><span class="clause">o ' + (item.idx + 1) +
-      '.1</span> — ' + formal(r.text) + '</span>');
-    if(!pass && r.note) parts.push('<span class="num">' + r.note(v) + '</span>');
-    if(!pass && r.widget) parts.push('<div class="tray">' + r.widget() + '</div>');
-    parts.push('</div></div>');
+    var code = "Clause " + String(item.idx + 1).padStart(2, "0");
+    var parts = ['<li class="rec ' + (pass ? "met" : "open") + fresh + '">'];
+    parts.push('<p class="rec-head"><span class="code">' + code + '</span>' +
+               '<span class="flag">' + (pass ? "Satisfied" : "Open") + '</span></p>');
+    parts.push('<p class="rec-text">' + r.text + '</p>');
+    if(!pass && r.note) parts.push('<p class="rec-note">' + r.note(v) + '</p>');
+    if(!pass && r.widget) parts.push('<div class="rec-tray">' + r.widget() + '</div>');
+    parts.push('</li>');
     return parts.join("");
   }).join("");
 
@@ -891,12 +721,12 @@ function celebrate(v){
   var secs = Math.round((Date.now() - state.started) / 1000);
   var mins = Math.floor(secs / 60);
   winEl.innerHTML =
-    '<div class="win"><h2>Credential provisionally accepted</h2>' +
-    '<p>' + (mins ? mins + " min " : "") + (secs % 60) + " s, " +
-    state.edits + ' keystrokes, ' + RULES.length +
-    ' clauses satisfied. You will be asked to reproduce this credential, from memory, on the next screen.</p>' +
+    '<div class="win"><h2>Determination: accepted</h2>' +
+    '<p>' + (mins ? mins + " min " : "") + (secs % 60) + ' s on the clock, ' +
+    state.edits + ' edits, all ' + RULES.length +
+    ' clauses satisfied.</p>' +
     '<div class="out">' + esc(v) + '</div>' +
-    '<button data-act="again">File a new request</button></div>';
+    '<button data-act="again">Start a new form</button></div>';
   winEl.scrollIntoView({behavior: "smooth", block: "center"});
 }
 
